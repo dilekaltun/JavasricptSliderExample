@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>slider</title>
+    <style>
+        #container{
+             max-width: 640px;
+             position: relative;
+             margin: auto;
+        }
+        .image{
+            width: 100%;
+            display: none;
+        }
+        img{
+            width: 100%;
+        }
+        .next, .back{
+            position: absolute;
+            background: gray;
+            opacity: 0.6;
+            font-size: 20px;
+            padding: 10px;
+            color:honeydew;
+            cursor: pointer;
+            top: 50%;
+            transform: translateY(-50);
+            border-radius: 50%;
+        }
+        .next{
+            right: 0;
+        }
+        .back{
+            left: 0;
+        }
+        .aktif{
+            display: block;
+            animation: fade .7s ease;
+        }
+        @keyframes fade{
+            0%{opacity: .5;}
+            100%{opacity: 1;}
+        }    
+        ul{
+            list-style: none;
+            text-align: center;
+        }
+        ul li{
+            width: 20px;
+            height: 20px;
+            border-radius:  50%;
+            background: gray;
+            display: inline-block;
+        }
+        .aktiflist{
+            background: rgb(82, 82, 82);
+        }
+    </style>
+</head>
+<body>
+    <div id="container" onmouseover="stop()" onmouseout="start()">
+        <div class="image"><img src="images/michel-catalisano-CtZC56qUQdw-unsplash.jpg" alt=""></div>
+        <div class="image"><img src="images/milin-john-0uTjgCkVtvM-unsplash.jpg" alt=""></div>
+        <div class="image "><img src="images/zoltan-tasi-CzIZrGGVgak-unsplash.jpg" alt=""></div>
+        <div class="image"><img src="images/navi-photography-4w0EleANuUI-unsplash.jpg" alt=""></div>
+        <div class="next " onclick="next()">>></div>
+        <div class="back" onclick="back()"><<</div>
+        <ul>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+
+    <script>
+        var image = document.getElementsByClassName("image");
+        var kutucuk= document.getElementsByTagName("li");
+        var index = 0;
+        galeri();
+        start();
+        function galeri(){
+            if(index >= image.length){
+                index=0;
+            }
+            else if(index<0){
+                index= image.length-1;
+            }
+            for(i=0;i<image.length; i++){
+                image[i].classList.remove("aktif");
+                kutucuk[i].classList.remove("aktiflist");
+            }
+            image[index].classList.add("aktif");
+            kutucuk[index].classList.add("aktiflist");
+        }
+        
+        function next(){
+            index++;
+            galeri();
+        }
+        function back(){
+            index--;
+            galeri();
+        }
+        function stop(){
+            clearInterval(sure);
+        }
+        function start(){
+            sure= setInterval(next,2000);
+        }
+    </script>
+</body>
+</html>
